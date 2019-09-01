@@ -7,6 +7,8 @@ import com.pi4j.io.i2c.impl.I2CDeviceImpl;
 import com.pi4j.platform.Platform;
 import com.pi4j.platform.PlatformAlreadyAssignedException;
 import com.pi4j.platform.PlatformManager;
+import com.pi4j.wiringpi.I2C;
+import fr.colin.seesawsdk.modules.GPIOModule;
 import fr.colin.seesawsdk.utils.PinUtils;
 
 import java.io.IOException;
@@ -16,14 +18,11 @@ public class Seesaw {
 
     public int SEESAW_ADDR = 0x49;
     public int i2CBus;
+    private I2CBus i;
     private Platform platform;
 
-    public static final int GPIO_MODULE = 0x01;
-    public static final int ANALOG_MODULE = 0x09;
-    public static final int NEOPIXEL_MODULE = 0x0E;
-    public static final int EEPROM_MODULE = 0x0D;
-    public static final int PWM_MODULE = 0x08;
-    public static final int UART_MODULE = 0x02;
+    private GPIOModule gpioController;
+
 
     private I2CDevice device;
 
@@ -36,17 +35,22 @@ public class Seesaw {
         this.platform = platform;
     }
 
+
     public Seesaw(int addr, int i2CBus, Platform platform) {
         this.SEESAW_ADDR = addr;
         this.i2CBus = i2CBus;
         this.platform = platform;
     }
 
+    public GPIOModule getGpioController() {
+        return gpioController;
+    }
+
     public void init() throws PlatformAlreadyAssignedException, IOException, I2CFactory.UnsupportedBusNumberException {
         PlatformManager.setPlatform(platform);
-        I2CBus i2c = I2CFactory.getInstance(i2CBus);
-        device = i2c.getDevice(SEESAW_ADDR);
-        System.out.println(device == null);
+        i = I2CFactory.getInstance(i2CBus);
+        device = i.getDevice(SEESAW_ADDR);
+        gpioController = new GPIOModule(this);
     }
 
 

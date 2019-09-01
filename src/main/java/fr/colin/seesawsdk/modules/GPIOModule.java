@@ -1,9 +1,12 @@
 package fr.colin.seesawsdk.modules;
 
-import fr.colin.seesawsdk.utils.ByteUtils;
+import com.igormaznitsa.jbbp.io.JBBPByteOrder;
+import com.igormaznitsa.jbbp.io.JBBPOut;
+import com.pi4j.io.gpio.*;
 import fr.colin.seesawsdk.Modes;
 import fr.colin.seesawsdk.Module;
 import fr.colin.seesawsdk.Seesaw;
+import fr.colin.seesawsdk.utils.ByteUtils;
 import fr.colin.seesawsdk.utils.PinUtils;
 
 import java.io.IOException;
@@ -14,7 +17,7 @@ public class GPIOModule extends Module {
 
 
     public GPIOModule(Seesaw seesaw) {
-        super(Seesaw.GPIO_MODULE, seesaw);
+        super(0x01, seesaw);
     }
 
     public void setMode(Modes modes, int... pins) {
@@ -25,85 +28,79 @@ public class GPIOModule extends Module {
             case OUTPUT:
                 setOutput(pins);
                 break;
+            case INPUT_PULLUP:
+                setInputPullUp(pins);
+                break;
+            case INPUT_PULLDOWN:
+                setInputPullDown(pins);
+                break;
             default:
                 setOutput(pins);
                 break;
         }
     }
 
-    private byte[] pinToAdress(int register, int... pins) {
+    private void setInputPullUp(int... pins) {
+        setInput(pins);
+        pullenSet(pins);
+        setHigh(pins);
+    }
+
+    private void setInputPullDown(int... pins) {
+        setInput(pins);
+        pullenSet(pins);
+        setLow(pins);
+    }
+
+    private void setOutput(int... pins) {
+        write(0x02, pins);
+    }
+
+    public void setHigh(int... pin) {
+        write(0x05, pin);
+    }
+
+    public void setLow(int... pin) {
+        write(0x06, pin);
+    }
+
+    public void toggle(int... pin) {
+        write(0x07, pin);
+    }
+
+    public int gpioReadBulk(int... pins) {
+        //0x01 0x04 bytes[]
         PinUtils p = new PinUtils();
         for (int i : pins) {
             p.add(i);
         }
         int pin = p.build();
-
-        byte[] b = new byte[5];
-        b[0] = (byte) register;
-        byte[] bs = ByteUtils.intToByteArray(pin);
-        b[1] = bs[0];
-        b[2] = bs[1];
-        b[3] = bs[2];
-        b[4] = bs[3];
-
-        return b;
+        byte[] buffer = new byte[4];
+        read(0x01, 0x04, buffer);
+        buffer[0] = (byte) (buffer[0] & 0x3F);
+        int sd = ByteUtils.fromByteArray(buffer);
+        return (sd & pin);
     }
 
-    private void setOutput(int... pins) {
-        byte[] b = pinToAdress(0x02, pins);
-        try {
-            getSeesaw().getDevice().write(Seesaw.GPIO_MODULE, b);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void setHigh(int... pin) {
-
-        byte[] b = pinToAdress(0x05, pin);
-        try {
-            getSeesaw().getDevice().write(Seesaw.GPIO_MODULE, b);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void setLow(int... pin) {
-        byte[] b = pinToAdress(0x06, pin);
-        try {
-            getSeesaw().getDevice().write(Seesaw.GPIO_MODULE, b);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void toggle(int pin) {
-        byte[] b = pinToAdress(0x07, pin);
-        try {
-            getSeesaw().getDevice().write(Seesaw.GPIO_MODULE, b);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void readAll() {
-
+    public boolean readGpio(int pin) {
+        return gpioReadBulk(pin) != 0;
     }
 
     private void setInput(int... pins) {
-        byte[] b = pinToAdress(0x03, pins);
-        try {
-            getSeesaw().getDevice().write(Seesaw.GPIO_MODULE, b);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        write(0x03, pins);
     }
 
-
-    public byte[] longToBytes(long x) {
-        ByteBuffer buffer = ByteBuffer.allocate(Long.BYTES);
-        buffer.putLong(x);
-        return buffer.array();
+    public void activateInterrupt(int... pins) {
+        write(0x08, pins);
     }
+
+    public void disableInterrupt(int... pins) {
+        write(0x09, pins);
+    }
+
+    public void pullenSet(int... pins) {
+        write(0x0B, pins);
+    }
+
 
 }

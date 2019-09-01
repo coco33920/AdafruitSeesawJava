@@ -1,4 +1,4 @@
-package fr.colin.test;
+package examples;
 
 import com.pi4j.io.i2c.I2CBus;
 import com.pi4j.io.i2c.I2CFactory;
@@ -12,28 +12,38 @@ import java.io.IOException;
 
 import static fr.colin.seesawsdk.utils.Pins.GPIO_15;
 
-public class Test {
-
-    //0 0
+public class BlinkExample {
 
     public static void main(String... args) throws InterruptedException, I2CFactory.UnsupportedBusNumberException, IOException, PlatformAlreadyAssignedException {
+        /*
+         * Initialize the device at the standard address ( 0x49 ) for the RPi platform
+         */
         Seesaw seesaw = new Seesaw(I2CBus.BUS_1, Platform.RASPBERRYPI);
+
+        /*
+        Init the device ( and the modules )
+         */
         seesaw.init();
+
         System.out.println("Connected to the device at address " + seesaw.getDevice().getAddress());
-        GPIOModule gpio = new GPIOModule(seesaw);
+
+        /*
+        Get the GPIOController of the seesaw, to manage the GPIOs
+         */
+        GPIOModule gpio = seesaw.getGpioController();
         gpio.setMode(Modes.OUTPUT, GPIO_15);
-        //gpio.setMode(Modes.OUTPUT,  10);
-        System.out.println("Test High on pin " + GPIO_15);
 
+
+        /*
+        Blinking
+         */
         gpio.setHigh(GPIO_15);
-
-        Thread.sleep(1000);
-        System.out.println("Test low on pin 15");
-        gpio.setLow(GPIO_15);
-        Thread.sleep(1000);
-        System.out.println("test toggle on pin 15");
-        gpio.toggle(GPIO_15);
-
+        while (true) {
+            Thread.sleep(1000);
+            gpio.setLow(GPIO_15);
+            Thread.sleep(1000);
+            gpio.setHigh(GPIO_15);
+        }
         //     gpio.setHigh(b);
         //   gpio.setLow(15);
         //  gpio.setLow(15);

@@ -25,4 +25,23 @@ public class ByteUtils {
                 ((bytes[3] & 0xFF) << 0);
     }
 
+    public static byte[] pinToAdress(int register, int... pins) {
+        PinUtils p = new PinUtils();
+        for (int i : pins) {
+            p.add(i);
+        }
+        int pin = p.build();
+
+        byte[] b = new byte[5];
+        b[0] = (byte) register;
+        byte[] bs = ByteUtils.intToByteArray(pin);
+        b[1] = bs[0];
+        b[2] = bs[1];
+        b[3] = bs[2];
+        b[4] = bs[3];
+
+        return b;
+    }
+
+
 }
