@@ -57,13 +57,14 @@ public class GPIOModule extends Module {
     }
 
     public void init() {
-        trackEvents();
+        //   trackEvents();
     }
 
     public void registerListener(int pin, PinListenerDigital listenerDigital) {
         synchronized (listeners) {
             if (!listeners.containsKey(pin)) {
                 listeners.put(pin, new ArrayList<>());
+                trackEventsOptimized(pin);
             }
             List<PinListenerDigital> l = listeners.get(pin);
             if (!l.contains(listenerDigital)) {
@@ -95,7 +96,7 @@ public class GPIOModule extends Module {
         }
     }
 
-    private void trackEvents() {
+  /*  private void trackEvents() {
         Thread t = new Thread(() -> {
             System.out.println("Start thread");
             HashMap<Integer, Boolean> state = new HashMap<>();
@@ -112,6 +113,28 @@ public class GPIOModule extends Module {
                         state.remove(pin);
                         state.put(pin, status);
                     }
+                }
+            }
+        });
+        t.start();
+    }*/
+
+    private void trackEventsOptimized(int pin) {
+        Thread t = new Thread(() -> {
+            System.out.println("Start Thread for events for pin " + pin);
+            boolean currentState = false;
+            boolean start = false;
+            while (true) {
+                boolean status = readGpio(pin);
+                if (!start) {
+                    currentState = status;
+                    start = true;
+                    continue;
+                }
+                if (currentState != status) {
+                    System.out.println("Fire events for pin " + pin + " with new status " + status + " from " + currentState + " with ");
+                    currentState = status;
+                    dispatchEvent(pin, status);
                 }
             }
         });
@@ -136,7 +159,6 @@ public class GPIOModule extends Module {
     }
 
     private int gpioReadBulk(int... pins) {
-        //0x01 0x04 bytes[]
         PinUtils p = new PinUtils();
         for (int i : pins) {
             p.add(i);

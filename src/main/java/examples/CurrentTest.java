@@ -36,17 +36,25 @@ public class CurrentTest {
             }
         }*/
         g.registerListener(GPIO_15, new PinListenerDigital() {
+            int i = 0;
+
             @Override
             public void handle(PinDigitalStateChangeEvent event) {
-                System.out.println("Yay pin " + event.getPin() + " changed to " + event.getState());
-                g.setHigh(10);
+                //    System.out.println("Yay pin " + event.getPin() + " changed to " + event.getState());
+                //       g.setHigh(10);
+                System.out.println("Pin Event n° " + i);
+                i++;
             }
         });
         g.registerListener(GPIO_10, new PinListenerDigital() {
+            int i = 0;
+
             @Override
             public void handle(PinDigitalStateChangeEvent event) {
-                System.out.println("LED ON/OFF");
-                g.setLow(10);
+                //  System.out.println("LED ON/OFF");
+                //   g.setLow(10);
+                System.out.println("LED Event n° " + i);
+                i++;
             }
         });
     }

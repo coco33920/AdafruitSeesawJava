@@ -50,7 +50,7 @@ public abstract class Module {
 
         try {
             write(register, function);
-            Thread.sleep(100);
+            Thread.sleep(delay);
             getSeesaw().getDevice().read(buffer, 0, 4);
         } catch (Exception e) {
             e.printStackTrace();
@@ -60,7 +60,7 @@ public abstract class Module {
 
     public int read(int register, int function, byte[] buffer) {
         //TODO general low level read function
-        return read(register, function, buffer, 10);
+        return read(register, function, buffer, 5);
     }
 
 
