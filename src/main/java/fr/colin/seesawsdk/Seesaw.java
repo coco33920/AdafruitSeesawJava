@@ -51,6 +51,7 @@ public class Seesaw {
         i = I2CFactory.getInstance(i2CBus);
         device = i.getDevice(SEESAW_ADDR);
         gpioController = new GPIOModule(this);
+        gpioController.init();
     }
 
 

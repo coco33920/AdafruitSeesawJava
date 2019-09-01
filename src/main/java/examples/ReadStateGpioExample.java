@@ -7,6 +7,7 @@ import com.pi4j.platform.PlatformAlreadyAssignedException;
 import fr.colin.seesawsdk.Modes;
 import fr.colin.seesawsdk.Seesaw;
 import fr.colin.seesawsdk.modules.GPIOModule;
+import static fr.colin.seesawsdk.utils.Pins.*;
 
 import java.io.IOException;
 
@@ -22,16 +23,16 @@ public class ReadStateGpioExample {
         GPIOModule g = s.getGpioController();
 
         //Set the pin 15 to output
-        g.setMode(Modes.OUTPUT, 15);
+        g.setMode(Modes.OUTPUT, GPIO_15);
 
         //Read the state of pin 15 should be : false
-        System.out.println(g.readGpio(15));
+        System.out.println(g.readGpio(GPIO_15));
 
         //Set the pin 15 to high
         g.setHigh(15);
 
         //Read the state of pin 15 should be : true
-        System.out.println(g.readGpio(15));
+        System.out.println(g.readGpio(GPIO_15));
     }
 
 

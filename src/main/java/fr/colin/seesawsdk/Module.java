@@ -60,7 +60,7 @@ public abstract class Module {
 
     public int read(int register, int function, byte[] buffer) {
         //TODO general low level read function
-        return read(register, function, buffer, 100);
+        return read(register, function, buffer, 10);
     }
 
 
