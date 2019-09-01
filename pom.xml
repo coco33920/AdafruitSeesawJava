@@ -24,7 +24,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>fr.colin.test.Test</mainClass>
+                            <mainClass>examples.CurrentTest</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
@@ -48,13 +48,21 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>fr.colin.test.Test</mainClass>
+                            <mainClass>examples.CurrentTest</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
             </plugin>
         </plugins>
     </build>
+
+    <repositories>
+        <repository>
+            <id>jitpack</id>
+            <name>Jitpack</name>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
 
     <dependencies>
         <!-- https://mvnrepository.com/artifact/com.pi4j/pi4j-core -->

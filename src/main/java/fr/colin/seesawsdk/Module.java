@@ -34,14 +34,6 @@ public abstract class Module {
         }
     }
 
-    public void write(int function) {
-        try {
-            seesaw.getDevice().write(register, ByteUtils.pinToAdress(function, 0));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     public void write(int register, int function) throws IOException {
         seesaw.getDevice().write(register, (byte) function);
     }
@@ -51,7 +43,7 @@ public abstract class Module {
         try {
             write(register, function);
             Thread.sleep(delay);
-            getSeesaw().getDevice().read(buffer, 0, 4);
+            getSeesaw().getDevice().read(buffer, 0, buffer.length);
         } catch (Exception e) {
             e.printStackTrace();
         }

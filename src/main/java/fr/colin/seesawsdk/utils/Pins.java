@@ -16,13 +16,14 @@ public class Pins {
     public static final int AD0 = 16;
     public static final int AD1 = 17;
 
-    public static final int ADC0 = 2;
-    public static final int ADC1 = 3;
-    public static final int ADC2 = 4;
+    public static final int ADC0 = 0x07;
+    public static final int ADC1 = 0x08;
+    public static final int ADC2 = 0x09;
 
-    public static final int PWM0 = 5;
-    public static final int PWM1 = 6;
-    public static final int PWM2 = 7;
+    public static final int PWM1 = 0;
+    public static final int PWM2 = 1;
+    public static final int PWM3 = 2;
+    public static final int PWM4 = 3;
 
 
 }

@@ -1,4 +1,4 @@
-package examples;
+package examples.analog;
 
 import com.pi4j.io.i2c.I2CBus;
 import com.pi4j.io.i2c.I2CFactory;
@@ -7,13 +7,13 @@ import com.pi4j.platform.PlatformAlreadyAssignedException;
 import fr.colin.seesawsdk.Seesaw;
 import fr.colin.seesawsdk.modules.AnalogModule;
 import fr.colin.seesawsdk.modules.PwmModule;
-import fr.colin.seesawsdk.utils.Pins;
 
 import java.io.IOException;
 
-import static fr.colin.seesawsdk.utils.Pins.*;
+import static fr.colin.seesawsdk.utils.Pins.ADC0;
+import static fr.colin.seesawsdk.utils.Pins.PWM2;
 
-public class CurrentTest {
+public class AnalogReadPwmOutputExample {
 
     public static void main(String... args) throws I2CFactory.UnsupportedBusNumberException, IOException, PlatformAlreadyAssignedException, InterruptedException {
         Seesaw s = new Seesaw(I2CBus.BUS_1, Platform.RASPBERRYPI);

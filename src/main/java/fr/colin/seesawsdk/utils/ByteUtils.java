@@ -24,6 +24,13 @@ public class ByteUtils {
                 ((bytes[2] & 0xFF) << 8) |
                 ((bytes[3] & 0xFF) << 0);
     }
+    public static short readShort(byte[] data, int offset) {
+        return (short) (((data[offset] << 8)) | ((data[offset + 1] & 0xff)));
+    }
+
+    public static byte[] shortToByteArray(short s) {
+        return new byte[] { (byte) ((s & 0xFF00) >> 8), (byte) (s & 0x00FF) };
+    }
 
     public static byte[] pinToAdress(int register, int... pins) {
         PinUtils p = new PinUtils();
