@@ -7,6 +7,7 @@ import fr.colin.seesawsdk.events.PinDigitalStateChangeEvent;
 import fr.colin.seesawsdk.events.listener.PinListener;
 import fr.colin.seesawsdk.events.listener.PinListenerDigital;
 import fr.colin.seesawsdk.utils.ByteUtils;
+import fr.colin.seesawsdk.utils.EventModes;
 import fr.colin.seesawsdk.utils.PinUtils;
 
 import java.util.ArrayList;
@@ -20,8 +21,14 @@ public class GPIOModule extends Module {
 
     private final Map<Integer, List<PinListenerDigital>> listeners = new ConcurrentHashMap<>();
 
+    private EventModes eventMode = EventModes.INTERRUPT_MODE;
+
     public GPIOModule(Seesaw seesaw) {
         super(0x01, seesaw);
+    }
+
+    public void setEventMode(EventModes eventMode) {
+        this.eventMode = eventMode;
     }
 
     public void setMode(Modes modes, int... pins) {
@@ -60,17 +67,27 @@ public class GPIOModule extends Module {
         //   trackEvents();
     }
 
-    public void registerListener(int pin, PinListenerDigital listenerDigital) {
+    public void registerListener(int pin, PinListenerDigital listenerDigital, EventModes eventMode) {
         synchronized (listeners) {
             if (!listeners.containsKey(pin)) {
                 listeners.put(pin, new ArrayList<>());
-                trackEventsOptimized(pin);
+                if (eventMode == EventModes.THREAD_TEST_MODE) {
+                    trackEventsOptimized(pin);
+                } else {
+                    activateInterrupt(pin);
+                    trackEventWithInterrupt(pin);
+                }
             }
             List<PinListenerDigital> l = listeners.get(pin);
             if (!l.contains(listenerDigital)) {
                 l.add(listenerDigital);
             }
         }
+    }
+
+    public void registerListener(int pin, PinListenerDigital listenerDigital) {
+        System.out.println(eventMode.toString());
+        registerListener(pin, listenerDigital, eventMode);
     }
 
     public void removeListener(int pin, PinListenerDigital listener) {
@@ -126,15 +143,33 @@ public class GPIOModule extends Module {
             boolean start = false;
             while (true) {
                 boolean status = readGpio(pin);
+                System.out.println(status);
                 if (!start) {
                     currentState = status;
                     start = true;
                     continue;
                 }
                 if (currentState != status) {
-                    System.out.println("Fire events for pin " + pin + " with new status " + status + " from " + currentState + " with ");
                     currentState = status;
                     dispatchEvent(pin, status);
+                }
+            }
+        });
+        t.start();
+    }
+
+    private void trackEventWithInterrupt(int pin) {
+        Thread t = new Thread(() -> {
+            System.out.println("Start Thread for events for pin " + pin);
+            while (true) {
+                boolean b = isInterrupted(pin);
+                if (b) {
+                    dispatchEvent(pin, true);
+                }
+                try {
+                    Thread.sleep(2);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             }
         });
@@ -169,6 +204,23 @@ public class GPIOModule extends Module {
         buffer[0] = (byte) (buffer[0] & 0x3F);
         int sd = ByteUtils.fromByteArray(buffer);
         return (sd & pin);
+    }
+
+    public int readInterrupt(int... pins) {
+        PinUtils p = new PinUtils();
+        for (int i : pins) {
+            p.add(i);
+        }
+        int pin = p.build();
+        byte[] buffer = new byte[4];
+        read(0x01, 0x0A, buffer);
+        buffer[0] = (byte) (buffer[0] & 0x3F);
+        int sd = ByteUtils.fromByteArray(buffer);
+        return (sd & pin);
+    }
+
+    public boolean isInterrupted(int pin) {
+        return readInterrupt(pin) != 0;
     }
 
     public boolean readGpio(int pin) {
