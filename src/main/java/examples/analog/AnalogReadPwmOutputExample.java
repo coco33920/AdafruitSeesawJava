@@ -16,7 +16,7 @@ import static fr.colin.seesawsdk.utils.Pins.PWM2;
 public class AnalogReadPwmOutputExample {
 
     public static void main(String... args) throws I2CFactory.UnsupportedBusNumberException, IOException, PlatformAlreadyAssignedException, InterruptedException {
-        Seesaw s = new Seesaw(I2CBus.BUS_1, Platform.RASPBERRYPI);
+        Seesaw s = new Seesaw(I2CBus.BUS_1);
         s.init();
         PwmModule pwmModule = new PwmModule(s);
         AnalogModule analog = new AnalogModule(s);

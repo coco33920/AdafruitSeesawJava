@@ -5,7 +5,7 @@ import fr.colin.seesawsdk.Seesaw;
 import fr.colin.seesawsdk.utils.ByteUtils;
 
 /**
- * *Implementation of the analogs inputs on the seesaw, at the time in the documentation was written the window mode and interrupt do not work, so it's not implemented here
+ * Analogs inputs on the seesaw, at the time in the documentation was written the window mode and interrupt do not work, so it's not implemented here
  **/
 
 public class AnalogModule extends Module {
@@ -13,6 +13,11 @@ public class AnalogModule extends Module {
         super(0x09, seesaw);
     }
 
+    /**
+     * Method to read the analog value in one of the 4 analog channel in the Seesaw
+     * @param channel The channel ( pin ) to read
+     * @return The 0 to 1024 value
+     */
     public short readChannel(int channel) {
         byte[] buffer = new byte[2];
         read(getRegister(), channel, buffer, 2);

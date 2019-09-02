@@ -18,7 +18,7 @@ public class BlinkExample {
         /*
          * Initialize the device at the standard address ( 0x49 ) for the RPi platform
          */
-        Seesaw seesaw = new Seesaw(I2CBus.BUS_1, Platform.RASPBERRYPI);
+        Seesaw seesaw = new Seesaw(I2CBus.BUS_1);
 
         /*
         Init the device ( and the modules )

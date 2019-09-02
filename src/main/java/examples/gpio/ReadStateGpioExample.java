@@ -16,7 +16,7 @@ public class ReadStateGpioExample {
     public static void main(String... args) throws I2CFactory.UnsupportedBusNumberException, IOException, PlatformAlreadyAssignedException, InterruptedException {
 
         //Init the seesaw ( like the BlinkExample )
-        Seesaw s = new Seesaw(I2CBus.BUS_1, Platform.RASPBERRYPI);
+        Seesaw s = new Seesaw(I2CBus.BUS_1);
         s.init();
 
         //Get the gpio controller

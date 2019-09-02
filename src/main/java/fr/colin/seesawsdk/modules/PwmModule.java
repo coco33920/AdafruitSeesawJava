@@ -10,6 +10,11 @@ public class PwmModule extends Module {
         super(0x08, seesaw);
     }
 
+    /**
+     * Method to write a pin with value in one byte
+     * @param pin The PWM Pin
+     * @param value The byte of the value
+     */
     public void writePwm(int pin, byte value) {
         byte[] buffer = new byte[]{0x01, (byte) pin, value};
         try {

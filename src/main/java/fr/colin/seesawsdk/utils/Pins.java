@@ -1,5 +1,8 @@
 package fr.colin.seesawsdk.utils;
 
+/**
+ * Class to map all the pins in the context to make their usage easier
+ */
 public class Pins {
 
     public static final int SDA = 22;

@@ -10,4 +10,6 @@ Currently working :
 </ol>
 <p>Examples in the examples package</p>
 <p>The event system is based on <a href="https://github.com/Pi4J/pi4j">pi4j</a> system</p>
+<h2>How to use it ?</h2>
+
 <p>Licence GNU GPL v3.0</p>

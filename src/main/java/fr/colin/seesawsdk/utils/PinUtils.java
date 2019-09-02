@@ -1,8 +1,10 @@
 package fr.colin.seesawsdk.utils;
 
-import java.util.ArrayList;
 import java.util.BitSet;
 
+/**
+ * Simple class to map the pin number to a 4 bytes int representation to GPIO manipulation
+ */
 public class PinUtils {
 
     BitSet end;
