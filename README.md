@@ -1,8 +1,10 @@
 # AdafruitSeesawJava
-Java SDK for Adafruit Seesaw, based on pi4j : https://pi4j.org <br>
-<a href="https://javadoc.nwa2coco.fr">JavaDoc</a><br>
+[![](https://jitpack.io/v/coco33920/AdafruitSeesawJava.svg)](https://jitpack.io/#coco33920/AdafruitSeesawJava)
+
+##Java SDK for Adafruit Seesaw, based on pi4j : https://pi4j.org
+<a href="https://javadoc.nwa2coco.fr">JavaDoc</a>
 <a href="https://coco33920.github.io/AdafruitSeesawJavaDoc">Documentation</a>
-<br>This SDK is in very early developpement,
+This SDK is in very early developpement,
 <br>
 Currently working :
 <br>
