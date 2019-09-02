@@ -127,9 +127,7 @@ public class GPIOModule extends Module {
         synchronized (listeners) {
             if (listeners.containsKey(pin)) {
                 List<PinListenerDigital> l = listeners.get(pin);
-                if (l.contains(listener)) {
-                    l.remove(listener);
-                }
+                l.remove(listener);
 
                 if (l.isEmpty()) {
                     listeners.remove(pin);
@@ -254,7 +252,7 @@ public class GPIOModule extends Module {
      * @param pins Pin(s) to read
      * @return The binary value
      */
-    public int readInterrupt(int... pins) {
+    private int readInterrupt(int... pins) {
         PinUtils p = new PinUtils();
         for (int i : pins) {
             p.add(i);
@@ -310,9 +308,9 @@ public class GPIOModule extends Module {
 
     /**
      * Activate the inner pull resistance of pin(s), the state of the pin set if it's a pullup ( HIGH ) or a pulldown ( LOW )
-     * @param pins
+     * @param pins Pin(s) to activate
      */
-    public void pullenSet(int... pins) {
+    private void pullenSet(int... pins) {
         write(0x0B, pins);
     }
 

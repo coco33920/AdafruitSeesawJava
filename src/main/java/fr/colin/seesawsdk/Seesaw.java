@@ -26,7 +26,7 @@ public class Seesaw {
 
     /**
      * Method to get the I2CDevice object from pi4j ( to read/write data )
-     * @return
+     * @return The I2CDevice
      */
     public I2CDevice getDevice() {
         return device;
@@ -59,12 +59,16 @@ public class Seesaw {
     }
 
     /**
-     * Method to init the device, always use it before use the Seesaw object
+     * Init the device, must be call before use it
+     * @throws PlatformAlreadyAssignedException Error with the platform
+     * @throws IOException Error with the reading of the bus
+     * @throws I2CFactory.UnsupportedBusNumberException Error of the reading with the bus number
      */
     public void init() throws PlatformAlreadyAssignedException, IOException, I2CFactory.UnsupportedBusNumberException {
         PlatformManager.setPlatform(Platform.RASPBERRYPI);
         i = I2CFactory.getInstance(i2CBus);
         device = i.getDevice(SEESAW_ADDR);
+        gpioController = new GPIOModule(this);
         gpioController.init();
     }
 

@@ -55,14 +55,14 @@ public abstract class Module {
      * Standard common to modules write function used mainly in the read process
      * @param register The inner address of the module
      * @param function The inner address of the function
-     * @throws IOException
+     * @throws IOException Error in write with the device
      */
     public void write(int register, int function) throws IOException {
         seesaw.getDevice().write(register, (byte) function);
     }
 
     /**
-     * Standard read function ( used in Analog & GPIO Modules )
+     * Standard read function ( used in Analog and GPIO Modules )
      * @param register The inner address of the module
      * @param function The inner address of the function
      * @param buffer Buffer of bytes to read into

@@ -21,9 +21,6 @@ public class AnalogReadPwmOutputExample {
         PwmModule pwmModule = new PwmModule(s);
         AnalogModule analog = new AnalogModule(s);
 
-        byte signedByte = -1;
-        int unsignedB = signedByte & (0xff);
-        System.out.println(signedByte + " un " + unsignedB);
         pwmModule.writePwm(PWM2, (byte) 0);
         while (true) {
             int i = analog.readChannel(ADC0);

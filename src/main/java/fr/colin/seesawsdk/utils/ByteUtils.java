@@ -79,5 +79,4 @@ public class ByteUtils {
         return b;
     }
 
-
 }

@@ -10,7 +10,7 @@ import fr.colin.seesawsdk.modules.GPIOModule;
 
 import java.io.IOException;
 
-import static fr.colin.seesawsdk.utils.Pins.GPIO_15;
+import static fr.colin.seesawsdk.utils.Pins.*;
 
 public class InterruptEventExample {
 
@@ -19,12 +19,13 @@ public class InterruptEventExample {
         s.init();
         GPIOModule g = s.getGpioController();
 
-        g.setMode(Modes.INPUT_PULLUP, GPIO_15);
+        g.setMode(Modes.INPUT_PULLUP, GPIO_15, GPIO_9);
+        g.setMode(Modes.OUTPUT, GPIO_10);
+        g.registerListener(GPIO_15, event -> g.setHigh(GPIO_10));
+        g.registerListener(GPIO_9, event -> g.setLow(GPIO_10));
 
         //Register a listener with the default interrupt event manager, it use one thread per pin
-        g.registerListener(GPIO_15, event -> {
-            System.out.println("Event with interrupt YAY !");
-        });
+
 
     }
 
