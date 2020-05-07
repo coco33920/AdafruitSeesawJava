@@ -1,7 +1,7 @@
-package fr.colin.seesawsdk.modules;
+package fr.charlotte.seesawsdk.modules;
 
-import fr.colin.seesawsdk.Module;
-import fr.colin.seesawsdk.Seesaw;
+import fr.charlotte.seesawsdk.Module;
+import fr.charlotte.seesawsdk.Seesaw;
 
 import java.io.IOException;
 

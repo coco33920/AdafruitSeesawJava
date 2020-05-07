@@ -1,4 +1,4 @@
-package fr.colin.seesawsdk.utils;
+package fr.charlotte.seesawsdk.utils;
 
 import java.util.BitSet;
 

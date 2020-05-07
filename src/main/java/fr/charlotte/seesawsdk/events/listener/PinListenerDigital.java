@@ -1,6 +1,6 @@
-package fr.colin.seesawsdk.events.listener;
+package fr.charlotte.seesawsdk.events.listener;
 
-import fr.colin.seesawsdk.events.PinDigitalStateChangeEvent;
+import fr.charlotte.seesawsdk.events.PinDigitalStateChangeEvent;
 
 public interface PinListenerDigital extends PinListener {
 

@@ -1,8 +1,8 @@
-package fr.colin.seesawsdk.modules;
+package fr.charlotte.seesawsdk.modules;
 
-import fr.colin.seesawsdk.Module;
-import fr.colin.seesawsdk.Seesaw;
-import fr.colin.seesawsdk.utils.ByteUtils;
+import fr.charlotte.seesawsdk.Module;
+import fr.charlotte.seesawsdk.Seesaw;
+import fr.charlotte.seesawsdk.utils.ByteUtils;
 
 /**
  * Analogs inputs on the seesaw, at the time in the documentation was written the window mode and interrupt do not work, so it's not implemented here

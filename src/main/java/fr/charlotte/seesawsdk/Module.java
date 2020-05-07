@@ -1,6 +1,6 @@
-package fr.colin.seesawsdk;
+package fr.charlotte.seesawsdk;
 
-import fr.colin.seesawsdk.utils.ByteUtils;
+import fr.charlotte.seesawsdk.utils.ByteUtils;
 
 import java.io.IOException;
 

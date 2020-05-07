@@ -1,4 +1,4 @@
-package fr.colin.seesawsdk;
+package fr.charlotte.seesawsdk;
 
 import com.pi4j.io.i2c.I2CBus;
 import com.pi4j.io.i2c.I2CDevice;
@@ -6,7 +6,7 @@ import com.pi4j.io.i2c.I2CFactory;
 import com.pi4j.platform.Platform;
 import com.pi4j.platform.PlatformAlreadyAssignedException;
 import com.pi4j.platform.PlatformManager;
-import fr.colin.seesawsdk.modules.GPIOModule;
+import fr.charlotte.seesawsdk.modules.GPIOModule;
 
 import java.io.IOException;
 

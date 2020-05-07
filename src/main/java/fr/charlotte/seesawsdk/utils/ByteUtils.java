@@ -1,6 +1,4 @@
-package fr.colin.seesawsdk.utils;
-
-import java.nio.ByteBuffer;
+package fr.charlotte.seesawsdk.utils;
 
 /**
  * Utils class to byte manipulation
@@ -19,7 +17,7 @@ public class ByteUtils {
         result[0] = (byte) ((data & 0xFF000000) >> 24);
         result[1] = (byte) ((data & 0x00FF0000) >> 16);
         result[2] = (byte) ((data & 0x0000FF00) >> 8);
-        result[3] = (byte) ((data & 0x000000FF) >> 0);
+        result[3] = (byte) ((data & 0x000000FF));
 
         return result;
     }

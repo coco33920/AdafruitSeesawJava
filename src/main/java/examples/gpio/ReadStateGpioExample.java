@@ -2,12 +2,11 @@ package examples.gpio;
 
 import com.pi4j.io.i2c.I2CBus;
 import com.pi4j.io.i2c.I2CFactory;
-import com.pi4j.platform.Platform;
 import com.pi4j.platform.PlatformAlreadyAssignedException;
-import fr.colin.seesawsdk.Modes;
-import fr.colin.seesawsdk.Seesaw;
-import fr.colin.seesawsdk.modules.GPIOModule;
-import static fr.colin.seesawsdk.utils.Pins.*;
+import fr.charlotte.seesawsdk.Modes;
+import fr.charlotte.seesawsdk.Seesaw;
+import fr.charlotte.seesawsdk.modules.GPIOModule;
+import static fr.charlotte.seesawsdk.utils.Pins.*;
 
 import java.io.IOException;
 

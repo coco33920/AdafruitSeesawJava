@@ -1,4 +1,4 @@
-package fr.colin.seesawsdk.utils;
+package fr.charlotte.seesawsdk.utils;
 
 /**
  * Class to map all the pins in the context to make their usage easier

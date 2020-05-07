@@ -1,4 +1,4 @@
-package fr.colin.seesawsdk.events;
+package fr.charlotte.seesawsdk.events;
 
 public enum PinEventType {
 

@@ -1,4 +1,4 @@
-package fr.colin.seesawsdk;
+package fr.charlotte.seesawsdk;
 
 /**
  * Simple enum of the modes

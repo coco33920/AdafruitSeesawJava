@@ -1,13 +1,13 @@
-package fr.colin.seesawsdk.modules;
+package fr.charlotte.seesawsdk.modules;
 
-import fr.colin.seesawsdk.Modes;
-import fr.colin.seesawsdk.Module;
-import fr.colin.seesawsdk.Seesaw;
-import fr.colin.seesawsdk.events.PinDigitalStateChangeEvent;
-import fr.colin.seesawsdk.events.listener.PinListenerDigital;
-import fr.colin.seesawsdk.utils.ByteUtils;
-import fr.colin.seesawsdk.utils.EventModes;
-import fr.colin.seesawsdk.utils.PinUtils;
+import fr.charlotte.seesawsdk.events.PinDigitalStateChangeEvent;
+import fr.charlotte.seesawsdk.events.listener.PinListenerDigital;
+import fr.charlotte.seesawsdk.Modes;
+import fr.charlotte.seesawsdk.Module;
+import fr.charlotte.seesawsdk.Seesaw;
+import fr.charlotte.seesawsdk.utils.ByteUtils;
+import fr.charlotte.seesawsdk.utils.EventModes;
+import fr.charlotte.seesawsdk.utils.PinUtils;
 
 import java.util.ArrayList;
 import java.util.List;
